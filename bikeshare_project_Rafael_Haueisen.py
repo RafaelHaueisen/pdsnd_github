@@ -72,8 +72,7 @@ def load_data(city, month, day):
     # filter by month if applicable
     if month != 'all':
         # use the index of the months list to get the corresponding int
-        months = ['january', 'february', 'march', 'april', 'may', 'june']
-        month = months.index(month.lower()) + 1
+        month = ['january', 'february', 'march', 'april', 'may', 'june'].index(month) + 1
     
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
