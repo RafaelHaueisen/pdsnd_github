@@ -12,6 +12,22 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
+def get_input(prompt, options):
+    """
+    Handles user input and validates it against a set of options.
+
+    Args:
+        prompt (str): The input prompt for the user.
+        options (tuple): The valid input options.
+
+    Returns:
+        (str): Validated user input.
+    """
+    user_input = input(prompt).lower()
+    while user_input not in options:
+        user_input = input(f"Invalid input. Please choose from {', '.join(options)}: ").lower()
+    return user_input
+
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -21,32 +37,17 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
-    cities = ('chicago', 'new york city', 'washington')
-    months = ('january', 'febuary', 'march', 'april', 'may', 'june', 'all')
-    dow = ('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'all')
     print('Hello! Let\'s explore some US bikeshare data!')
-    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    user_city = str(input('Which city do you require data from? Please choose between ' \
-                          f'({", ".join(cities)}): ')).lower()
-    # handling wrong user city input
-    while user_city not in cities:
-        user_city = str(input('Please enter a valid city ' \
-                              f'({", ".join(cities)}): ')).lower()
-    # get user input for month (all, january, february, ... , june)
-    user_month = str(input('Which month do you require data from? Please choose between ' \
-                           f'({", ".join(months)}): ')).lower()
-    while user_month not in months:
-        user_month = str(input('Please enter a valid month ' \
-                               f'({", ".join(months)}): ')).lower()
-    # get user input for day of week (all, monday, tuesday, ... sunday)
-    user_dow = str(input('Which day of week do you require data from? Please choose between' \
-                         f'({", ".join(dow)}): ')).lower()
-    while user_dow not in dow:
-        user_dow = str(input('Please enter a valid day of the week ' \
-                              f'({", ".join(dow)}): ')).lower()
+    cities = ('chicago', 'new york city', 'washington')
+    months = ('january', 'february', 'march', 'april', 'may', 'june', 'all')
+    days = ('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'all')
+    
+    city = get_input(f"Which city do you require data from? Please choose from {', '.join(cities)}: ", cities)
+    month = get_input(f"Which month do you require data from? Please choose from {', '.join(months)}: ", months)
+    day = get_input(f"Which day of week do you require data from? Please choose from {', '.join(days)}: ", days)
 
     print('-'*40)
-    return user_city, user_month, user_dow
+    return city, month, day
 
 
 def load_data(city, month, day):
@@ -71,8 +72,7 @@ def load_data(city, month, day):
     # filter by month if applicable
     if month != 'all':
         # use the index of the months list to get the corresponding int
-        months = ['january', 'february', 'march', 'april', 'may', 'june']
-        month = months.index(month.lower()) + 1
+        month = ['january', 'february', 'march', 'april', 'may', 'june'].index(month) + 1
     
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
@@ -150,17 +150,6 @@ def trip_duration_stats(df):
     print('-'*40)
 
 
-def user_stats(df, city):
-    """Displays statistics on bikeshare users."""
-
-    print('\nCalculating User Stats...\n')
-    start_time = time.time()
-
-    # Display counts of user types
-    print('The quantity and types of user are: \n')
-    print(df["User Type"].value_counts())
-
-    # Check if I have acces to gender and birth dates
 def user_stats(df, city):
     """Displays statistics on bikeshare users."""
 
