@@ -161,17 +161,6 @@ def user_stats(df, city):
     print(df["User Type"].value_counts())
 
     # Check if I have acces to gender and birth dates
-def user_stats(df, city):
-    """Displays statistics on bikeshare users."""
-
-    print('\nCalculating User Stats...\n')
-    start_time = time.time()
-
-    # Display counts of user types
-    print('The quantity and types of user are: \n')
-    print(df["User Type"].value_counts())
-
-    # Check if I have acces to gender and birth dates
     if city != 'washington':
         # Display counts of gender
         print('The gender types an count is: \n')
