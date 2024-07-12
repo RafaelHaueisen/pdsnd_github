@@ -7,7 +7,9 @@ This project was created on 12/07/2024 (dd/mm/yyyy).
 Udacity nanodegree git project
 
 ### Description
-Describe what your project is about and what it does
+This project is about bikeshare data across three major US cities.
+
+It takes user input about which city he wants information in, the month and dow he's looking for. Also, if needed, the user can get a look at the raw data present in the .csv files.
 
 ### Files used
 .github
